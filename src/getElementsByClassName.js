@@ -4,7 +4,18 @@
 // };
 
 // But instead we're going to implement it from scratch:
+// shoud usedocument.body, element.childNodes, and element.classList
+
+
 var getElementsByClassName = function(className
 ) {
-  // your code here
+  // Method #1
+  var inputClassSeletor = $("."+className)
+  var result =[];
+  for (var i = 0; i < inputClassSeletor.length; i++) {
+    result.push(inputClassSeletor[i]);
+  }
+  return result;
+  // Method #2: shoud usedocument.body, element.childNodes, and element.classList
+  
 };
