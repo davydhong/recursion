@@ -29,37 +29,33 @@
 
 var getElementsByClassName = function (className) {
   var addDOM = function () {
-    if (_.contains(dom.classList, className) && haveGoneDown === false) {
+    if (_.contains(dom.classList, className) && ChildInspected === false) {
       arr.push(dom);
       return arr;
     } else {
     }
   }
+  
   var go2Child = function () {
-    if (dom.firstChild !== null) {
       level.push(level.slice(-1)[0] + 1);
-      haveGoneDown = false;
+      ChildInspected = false;
       return dom = dom.firstChild;
-    }
   }
+
   var go2Sibling = function () {
-    if (dom.nextSibling !== null) {
-      haveGoneDown = false;
+      ChildInspected = false;
       return dom = dom.nextSibling;
-    }
   }
   var go2Parent = function () {
-    if (dom.parentNode !== null) {
       level.push(level.slice(-1)[0] - 1);
-      haveGoneDown = true;
+      ChildInspected = true;
       return dom = dom.parentNode;
-    }
   }
   
   var dom = document.body;
   var arr = [];
   var level = [0];
-  var haveGoneDown = false;
+  var ChildInspected = false;
  
   
   var recur = function () {
@@ -69,7 +65,7 @@ var getElementsByClassName = function (className) {
     }
     
     addDOM();
-    if (dom.firstChild !== null && haveGoneDown === false) {    
+    if (dom.firstChild !== null && ChildInspected === false) {    
       go2Child();
       return recur();
 
