@@ -117,23 +117,19 @@ var stringifyJSON = function (obj) {
       indexOfInner: Steps.indexOfInner.slice(-1)[0],
       innerObject: Steps.innerObject.slice(-1)[0],
     }
-    if (typeof current.Ob === "string" && current.level == 0) {
+    if (typeof current.Ob === "string" && current.level == 0) { // simple strings as input
       var trim = Obj2String(obj);
       return trim.split('"[').join("[").split(']"').join("]").split('"{').join("{").split('}"').join("}")
-    } else if (typeof current.Ob !== "object" && current.level == 0) { // simple numbers
+    } else if (typeof current.Ob !== "object" && current.level == 0) { // simple numbers as input
       return current.Ob.toString();
-    } else if (!current.containObj && current.level == 0) { // simple arrays and objects 
+    } else if (!current.containObj && current.level == 0) { // simple arrays and objects as input
       var trim = Obj2String(current.Ob);
-
       return trim.split('"[').join("[").split(']"').join("]").split('"{').join("{").split('}"').join("}")
-    } else if (!current.containObj && current.level > 0) {
-
+    } else if (!current.containObj && current.level > 0) { // complex objects (objects within objects)
       obj = Steps.Ob[Steps.Ob.length - 2];
-
       obj[locateObj(obj)] = Obj2String(obj[locateObj(obj)])
       Steps.stepOut(); //two-level arrays [[Array],[Array]]
       return recur();
-
     } else {
       if (current.containObj) {
         obj = obj[locateObj(obj)];
